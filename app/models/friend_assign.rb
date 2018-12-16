@@ -1,0 +1,2 @@
+class FriendAssign < ApplicationRecord
+end
