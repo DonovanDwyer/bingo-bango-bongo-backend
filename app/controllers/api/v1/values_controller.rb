@@ -3,8 +3,13 @@ class Api::V1::ValuesController < ApplicationController
 
   def index
     @theme = values_params[:theme]
-    @values = Value.all.select { |value| value.theme == @theme }
-    render json: @values, status: :accepted
+    if @theme == "all"
+      @values = Value.all
+      render json: @values, status: :accepted
+    else
+      @values = Value.all.select { |value| value.theme == @theme }
+      render json: @values, status: :accepted
+    end
   end
 
 

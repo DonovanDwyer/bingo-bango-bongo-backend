@@ -15,13 +15,6 @@ ActiveRecord::Schema.define(version: 2018_12_12_181727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "bingo_cards", force: :cascade do |t|
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_bingo_cards_on_user_id"
-  end
-
   create_table "friend_assigns", id: false, force: :cascade do |t|
     t.integer "user_a_id", null: false
     t.integer "user_b_id", null: false
@@ -41,10 +34,10 @@ ActiveRecord::Schema.define(version: 2018_12_12_181727) do
 
   create_table "value_assigns", force: :cascade do |t|
     t.bigint "value_id"
-    t.bigint "bingo_card_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["bingo_card_id"], name: "index_value_assigns_on_bingo_card_id"
+    t.index ["user_id"], name: "index_value_assigns_on_user_id"
     t.index ["value_id"], name: "index_value_assigns_on_value_id"
   end
 
@@ -55,7 +48,6 @@ ActiveRecord::Schema.define(version: 2018_12_12_181727) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "bingo_cards", "users"
   add_foreign_key "value_assigns", "\"values\"", column: "value_id"
-  add_foreign_key "value_assigns", "bingo_cards"
+  add_foreign_key "value_assigns", "users"
 end

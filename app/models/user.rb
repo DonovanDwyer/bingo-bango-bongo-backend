@@ -4,4 +4,6 @@ class User < ApplicationRecord
     :join_table => :friend_assigns,
     :foreign_key => "user_a_id",
     :association_foreign_key => "user_b_id")
+  has_many :value_assigns
+  has_many :values, through: :value_assigns
 end
